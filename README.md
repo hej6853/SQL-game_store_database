@@ -6,3 +6,8 @@ ABC Game Store, a console games retailer, has shown a rapid growth since its sta
 
 According to DBLC, the database for the business is in the fourth phase, testing and evaluation. The project has finished initial study, design, and implementation and loading phase and needs to take further actions in testing and evaluation, operation, and maintenance and evolution phase. The database needs to iteratively make improvements to address problems occurring.  Iteration of the updating the database will eliminate the bottlenecks of ABC game store business and potentially impact on creating additional economic values and securing customer loyalty.
 
+## Build with
+- MS Access SQL
+
+## License
+© hej6853
