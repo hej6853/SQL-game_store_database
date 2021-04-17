@@ -1,3 +1,5 @@
+![Capture](https://user-images.githubusercontent.com/79428102/115105831-360f4780-9f16-11eb-8673-f0d6ecaae4d5.JPG)
+
 # Database_Project
 This a project that explains how I used SQL for a database design.
 
