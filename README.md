@@ -11,7 +11,7 @@ According to DBLC, the database for the business is in the fourth phase, testing
 ## Build with
 - MS Access SQL
 
-## EDR
+## ERD
 ![Capture](https://user-images.githubusercontent.com/79428102/115106224-62c45e80-9f18-11eb-8714-9d8283a00444.JPG)
 
 
