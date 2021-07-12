@@ -21,7 +21,9 @@ According to DBLC, the database for the business is in the fourth phase, testing
 
 ## Conclusion
 ●	Defined 5 database issues that caused a bottleneck to improve customer experience and designed 13 relational database models with ERD to solve the business backlog by designing a SQL database.
+
 ●	Created a Customer Relationship Management (CRM) database model by applying analytical approaches which are projected to create $10 million in value to the local economy.
+
 ● Enable to understand the software development life cycle and set up future action plan
 
 ## License
