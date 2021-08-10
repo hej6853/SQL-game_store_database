@@ -19,12 +19,109 @@ According to DBLC, the database for the business is in the fourth phase, testing
 ## ERD
 ![Capture](https://user-images.githubusercontent.com/79428102/115106224-62c45e80-9f18-11eb-8714-9d8283a00444.JPG)
 
+## Query
+
+Query 1) Total Number of Purchase
+```
+SELECT Product.ProdID, ProdName, GenreID, COUNT(PurchaseLine.PurchaseID) AS Total_Num_of_Purchase
+FROM Product, Customer, Purchase, PurchaseLine
+WHERE Product.ProdID=PurchaseLine.ProdID 
+AND Customer.CusID=Purchase.CusID 
+AND Purchase.PurchaseID=PurchaseLIne.PurchaseID 
+AND purchasedate >= '1/1/2021' 
+AND purchasedate < '1/31/2021'
+GROUP BY Product.ProdID, ProdName, GenreID;
+```
+
+Query 2) Purchase of Male Customers
+```
+SELECT Product.ProdID, ProdName, GenreID, CusGender, COUNT(PurchaseLine.PurchaseID) AS Total_Num_of_Purchase
+FROM Product, Customer, Purchase, PurchaseLine
+WHERE Product.ProdID=PurchaseLine.ProdID 
+AND Customer.CusID=Purchase.CusID 
+AND Purchase.PurchaseID=PurchaseLIne.PurchaseID 
+AND CusGender='M' 
+AND purchasedate >= '1/1/2021' 
+AND purchasedate < '1/31/2021'
+GROUP BY Product.ProdID, ProdName, GenreID, CusGender;
+```
+
+Query 3) Purchase of Female Customers
+```
+SELECT Product.ProdID, ProdName, GenreID, CusGender, COUNT(PurchaseLine.PurchaseID) AS Total_Num_of_Purchase
+FROM Product, Customer, Purchase, PurchaseLine
+WHERE Product.ProdID=PurchaseLine.ProdID 
+AND Customer.CusID=Purchase.CusID 
+AND Purchase.PurchaseID=PurchaseLIne.PurchaseID 
+AND CusGender='F' 
+AND PurchaseDate >= '1/1/2021' 
+AND PurchaseDate < '1/31/2021'
+GROUP BY Product.ProdID, ProdName, GenreID, CusGender;
+```
+
+Query 4) Purchase of Customers Over age 30 
+```
+SELECT Product.ProdID, ProdName, GenreID, COUNT(PurchaseLine.PurchaseID) AS Total_Num_of_Purchase
+FROM Product, Customer, Purchase, PurchaseLine
+WHERE Product.ProdID=PurchaseLine.ProdID 
+AND Customer.CusID=Purchase.CusID 
+AND Purchase.PurchaseID=PurchaseLIne.PurchaseID 
+AND CusDoB <= '12/31/1991' 
+AND PurchaseDate >= '1/1/2021' 
+AND PurchaseDate < '1/31/2021'
+GROUP BY Product.ProdID, ProdName, GenreID;
+```
+
+Query 5) Find each employees’ average score and name and create ‘employee_avg_score’ table
+```
+CREATE TABLE employee_avg_score AS (
+SELECT EMPLOYEE.EmpFName, Count(SURVEY.SurveyID) AS CountOfSurvey, Avg(SurveyRating) AS AvgOfRating, 
+Count(SURVEY.SurveyComment) AS CountOfComment
+FROM SURVEY, EMPLOYEE
+WHERE SURVEY.EmpID = EMPLOYEE.EmpID 
+AND SurveyDate >= '1/1/2021' 
+AND SurveyDate <= '1/31/2021'
+GROUP BY EMPLOYEE.EmpFName
+ORDER BY EMPLOYEE.EmpFName
+);	
+```
+
+Query 6) TOtal number of purchase in January, 2021
+```
+SELECT Product.ProdID, ProdName, GenreID, COUNT(PurchaseLine.PurchaseID) AS Total_Num_of_Purchase
+FROM Product, Customer, Purchase, PurchaseLine
+WHERE Product.ProdID=PurchaseLine.ProdID 
+AND Customer.CusID=Purchase.CusID 
+AND Purchase.PurchaseID=PurchaseLIne.PurchaseID 
+AND PurchaseDate >= '1/1/2021'
+AND PurchaseDate <= '1/31/2021'
+GROUP BY Product.ProdID, ProdName, GenreID;
+```
+
+## Further Improvement _Database Life Cycle Framework
+For a database design, six phases of the database life cycle are needed: initial study, design, implementation and loading, testing and evaluation, operation, and maintenance and evolution. The ABC game store project was carried out to the middle of the testing and evaluation phase.  
+
+First, in the initial study phase, the ABC game store's current situation is analyzed and problems are defined. The ABC game store has failed to generate meaningful outputs within the current spreadsheet because it has stored incomplete, denormalized, redundant, and not fully integrated conceptual data. Furthermore, because of failing to track the system operation, the ABC game store could not take action associated with customer dissatisfaction from the in-store customer service. Therefore, the proposed database was designed to solve the core problem, a poor in-store customer service quality, that we have identified. During the 'analyzing problems' process, we also recognized and defined two sets of limits; scope and boundaries --to improve the quality of customer service and train employees, the design will encompass the entire organization, ABC game store (extent). Also, considering ABC game store is a local-size store and the database will be used only for the internal employees, we as designers encouraged to spend the budget on using intuitive and cost-efficient software rather than spending budget on visual implementation software such as HTML.
+
+Second, in the design phase, the information requirements were defined with the business' view and the designer’s view. It is important to take a step in identifying the real-world from the perspective of data and representing it as a conceptual model, which corresponds to a logical database design. The design process underwent three essential stages: conceptual, logical, and physical design. First, in the conceptual design process, our team created an Entity-Relation Diagram via MS Visio by changing the business requirements to a conceptual schema and specifying constraints on all sets of entities in the database and attribute relationships. Then, in the logical design process, we constructed a logically implementable data model from a conceptual design into an Excel file and decided MS Access as DBMS software. This is the process of converting to a user-recognizable form and defining a schema. For example, when creating a relational table containing customer information, it is made easy to understand by expressing it in the same form as a table consisting of items such as customer ID, name, and contact information. Lastly, in the physical design process, we went through the process of designing internal data storage structures and access paths to make the logical database structure easier for MS Access to handle. Especially we took into consideration methods of saving storage and avoiding redundancy to improve efficiency in data processing.
+
+Third, in the implementation and loading phase, we established an actual database in MS Access using SQL queries based on what was obtained during the design process. We mainly used DDL (Data Definition Language) and DML (Data Manipulation Language) to write simple, clear, consistent SQL queries along with the business requirement analysis. After the database has been created, the data saved in the excel file was loaded into the database tables and we confirmed all of the data was in a relational database so that it can be readily extracted based on the information requirements.  
+
+Fourth, in the testing and evaluation phase, we can ensure whether the proposed database maintains the integrity and security of the data. Run simulations by extracting the data from several relational tables and making a summary report according to the queries from task 4 which may resolve the current ABC game store’s issues, we confirmed that our DBMS is in the proper use of primary and foreign key rules. This process ensured that these constraints were properly designed and implemented. In this phase, not only testing but also safe levels of data security should be guaranteed. Consequently, our team must further test for these data privacy issues such as physical security, password security, access rights, audit trails, data encryption, diskless workstations, etc. Also, to make sure the DBMS can support rapid transactions, our team needs to make sure the capacity of hardware and software is implemented with our database by fine-tuning the database. Then, we can evaluate the database and its application programs. Also, it is always crucial to ensure a plan for data loss which can be incurred by unintended deletions, power outages or other outside factors. Therefore, we should make sure to perform backup plans such as full backup, differential backup, and transaction log backup depending on the importance of the data.
+
+Fifth, in the operation phase, real-world use of implemented databases identifies problems and improvements. In this phase, some of the issues that have not been addressed in the previous phase, testing and evaluation, might be identified and this leads to the last step, phase 6, maintenance and evolution.
+
+Last but not least, in the maintenance and evolution phase, we can address the issues caused from the operation phase, and compare the data models, reviewing them whether they fit well together by keeping continuous enhancements.
+
+
 ## Conclusion
 ●	Defined 5 database issues that caused a bottleneck to improve customer experience and designed 13 relational database models with ERD to solve the business backlog by designing a SQL database.
+
 
 ●	Created a Customer Relationship Management (CRM) database model by applying analytical approaches which are projected to create $10 million in value to the local economy.
 
 ● Enable to understand the software development life cycle and set up future action plan
+
 
 ## License
 © hej6853
